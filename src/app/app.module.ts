@@ -3,16 +3,35 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProductoListaComponent } from './componentes/producto-lista/producto-lista.component';
+import { ProductoNuevoeditarComponent } from './componentes/producto-nuevoeditar/producto-nuevoeditar.component';
+import { ClienteListaComponent } from './componentes/cliente-lista/cliente-lista.component';
+import { ClienteNuevoeditarComponent } from './componentes/cliente-nuevoeditar/cliente-nuevoeditar.component';
+import { FacturaListaComponent } from './componentes/factura-lista/factura-lista.component';
+import { FacturaNuevoComponent } from './componentes/factura-nuevo/factura-nuevo.component';
+import { ApiService } from './servicios/api.service';
+import { ApiJsonService } from './servicios/api-son.service';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductoListaComponent,
+    ProductoNuevoeditarComponent,
+    ClienteListaComponent,
+    ClienteNuevoeditarComponent,
+    FacturaListaComponent,
+    FacturaNuevoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ApiService, ApiJsonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
