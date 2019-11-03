@@ -10,10 +10,11 @@ import { ClienteNuevoeditarComponent } from './componentes/cliente-nuevoeditar/c
 import { FacturaListaComponent } from './componentes/factura-lista/factura-lista.component';
 import { FacturaNuevoComponent } from './componentes/factura-nuevo/factura-nuevo.component';
 import { ApiService } from './servicios/api.service';
-import { ApiJsonService } from './servicios/api-son.service';
+import { ApiJsonService } from './servicios/api-json.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuLateralComponent } from './componentes/menu-lateral/menu-lateral.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ClienteListaComponent,
     ClienteNuevoeditarComponent,
     FacturaListaComponent,
-    FacturaNuevoComponent
+    FacturaNuevoComponent,
+    MenuLateralComponent
   ],
   imports: [
     BrowserModule,

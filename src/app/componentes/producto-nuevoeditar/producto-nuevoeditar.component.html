@@ -1,37 +1,45 @@
-
-<div class="container">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-6 text-center">Nuevo Producto</h1>
+    </div>
+  </div>
   <div class="row">
     <div class="col"></div>
     <div class="col-8">
-      <h1>Nuevo Producto  </h1>
       <form [formGroup]="formularioProducto">        
         {{formularioProducto.value | json}}  
-        <div class="form-group">
-          <label for="descripcion">Descripción</label>
-          <input type="text" class="form-control" placeholder="Nombre/Descripción de producto"
-            formControlName="descripcion">
-        </div>    
-        <div class="form-group">
-          <label for="codigo">Codigo</label>
-          <input type="text" class="form-control" name="codigo" placeholder="Códig de producto"
-            formControlName="codigo" [ngClass]="{'is-invalid' : (codigo.invalid && codigo.touched)}">
-          <small class="form-text text-danger" *ngIf="codigo.invalid && codigo.touched">
-            El codigo no puede ser vacio
-          </small>
-        </div>  
-        <div class="form-group">
-          <label for="precio">Precio</label>
-          <input type="number" class="form-control" name="precio" 
-            aria-describedby="precioInfo" placeholder="Precio unitario" formControlName="precio">
-          <small id="precioInfo" class="form-text text-muted">
-            Coloque el precio base sin impuestos aplicados
-          </small>
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" placeholder="Nombre/Descripción de producto"
+              formControlName="descripcion">
+          </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="precio">Precio</label>
+            <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+            <input type="number" class="form-control" name="precio" 
+              aria-describedby="precioInfo" placeholder="Precio unitario" formControlName="precio">
+             </div>
+             <small id="precioInfo" class="form-text text-muted">
+              Coloque el precio base sin impuestos aplicados
+            </small>
+          </div>  
+          <div class="form-group col-md-6">
+            <label for="codigo">Codigo</label>
+            <input type="text" class="form-control" name="codigo" placeholder="Código de producto"
+              formControlName="codigo" [ngClass]="{'is-invalid' : (codigo.invalid && codigo.touched)}">
+            <small class="form-text text-danger" *ngIf="codigo.invalid && codigo.touched">
+              El codigo no puede ser vacio
+            </small>
+          </div>
         </div>
-          <button type="submit" class="btn btn-primary"
+          <button type="submit" class="btn btn-success"
             [disabled]="formularioProducto.invalid"
             (click)="guardarProducto()">Crear Producto</button>
       </form>
     </div>
     <div class="col"></div>
   </div>
-</div>
