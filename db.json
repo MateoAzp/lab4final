@@ -1,5 +1,12 @@
 {
-  "producto": [],
+  "producto": [
+    {
+      "id": 27,
+      "codigo": "asdasd1231",
+      "descripcion": "Ruleman x900",
+      "precio": 44
+    }
+  ],
   "cliente": [],
   "factura": [],
   "facturaitem": []

@@ -6,8 +6,9 @@ import { ProductoListaComponent } from './componentes/producto-lista/producto-li
 
 const routes: Routes = [
     {
-      path: 'productos', component:ProductoListaComponent,
-      children: [{ path: ':id', component: ProductoNuevoeditarComponent }] 
+      path: 'productos', component:ProductoListaComponent },
+      {path: 'productos/:id', component: ProductoNuevoeditarComponent, pathMatch:'full' 
+      //children: [{ path: ':id', }] 
     },
     { path: '**', component: ProductoNuevoeditarComponent }
 ];

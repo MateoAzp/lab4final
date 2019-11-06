@@ -15,6 +15,7 @@ import { ApiJsonService } from './servicios/api-json.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuLateralComponent } from './componentes/menu-lateral/menu-lateral.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,9 +32,10 @@ import { MenuLateralComponent } from './componentes/menu-lateral/menu-lateral.co
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [ApiService, ApiJsonService],
+  providers: [ApiService, ApiJsonService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
