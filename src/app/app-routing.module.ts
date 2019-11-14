@@ -2,12 +2,19 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductoNuevoeditarComponent } from './componentes/producto-nuevoeditar/producto-nuevoeditar.component';
 import { ProductoListaComponent } from './componentes/producto-lista/producto-lista.component';
+import { ClienteListaComponent } from './componentes/cliente-lista/cliente-lista.component';
+import { ClienteNuevoeditarComponent } from './componentes/cliente-nuevoeditar/cliente-nuevoeditar.component';
 
 
 const routes: Routes = [
     {
       path: 'productos', component:ProductoListaComponent },
       {path: 'productos/:id', component: ProductoNuevoeditarComponent, pathMatch:'full' 
+      //children: [{ path: ':id', }] 
+    },
+    {
+      path: 'clientes', component:ClienteListaComponent },
+      {path: 'clientes/:id', component: ClienteNuevoeditarComponent, pathMatch:'full' 
       //children: [{ path: ':id', }] 
     },
     { path: '**', component: ProductoNuevoeditarComponent }

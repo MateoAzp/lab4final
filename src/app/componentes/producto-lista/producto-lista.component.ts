@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/servicios/api.service';
+import { Producto } from 'src/app/clases/producto';
 
 @Component({
   selector: 'mp-producto-lista',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductoListaComponent implements OnInit {
 
-  constructor() { }
+  productos: Producto[]
+  constructor(private api: ApiService) {
+    this.api.getProductos().subscribe(data => this.productos = data)
+   }
 
   ngOnInit() {
+  }
+  
+  borrarProducto(id: number){
+    this.api.eliminarProducto(id).subscribe()
   }
 
 }

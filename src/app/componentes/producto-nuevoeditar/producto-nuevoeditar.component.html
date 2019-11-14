@@ -1,17 +1,17 @@
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-6 text-center">Nuevo Producto</h1>
+      <h1 class="display-6 text-center" *ngIf="esProductoNuevo">Nuevo Producto</h1>
+      <h1 class="display-6 text-center" *ngIf="!esProductoNuevo">Modificar Producto</h1>
     </div>
   </div>
   <div class="row" *ngIf="this.formularioProducto">
     <div class="col"></div>
     <div class="col-8">
       <form [formGroup]="formularioProducto">        
-        {{formularioProducto.value | json}}  
           <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <input type="text" class="form-control" placeholder="Nombre/Descripción de producto"
-              formControlName="descripcion">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" placeholder="Nombre de producto"
+              formControlName="nombre">
           </div>
         <div class="form-row">
           <div class="form-group col-md-6">
@@ -20,10 +20,15 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">$</span>
               </div>
-            <input type="number" class="form-control" name="precio" 
-              aria-describedby="precioInfo" placeholder="Precio unitario" formControlName="precio">
+            <input type="number" class="form-control" name="precio"
+              [ngClass]="{'is-invalid' : (precio.invalid && precio.touched)}"
+              aria-describedby="precioInfo" placeholder="Precio unitario"
+              formControlName="precio">
              </div>
-             <small id="precioInfo" class="form-text text-muted">
+             <small class="form-text text-danger" *ngIf="precio.invalid && precio.touched">
+              Un Producto debe tener un precio
+            </small>
+             <small id="precioInfo" class="form-text text-muted" *ngIf="!(precio.invalid && precio.touched)">
               Coloque el precio base sin impuestos aplicados
             </small>
           </div>  
@@ -36,9 +41,17 @@
             </small>
           </div>
         </div>
-          <button type="submit" class="btn btn-success"
+        <div class="form-group">
+            <label for="nombre">Descripción</label>
+            <textarea type="text" class="form-control" placeholder="Descripción de producto"
+              formControlName="descripcion"></textarea>              
+          </div>
+          <button type="submit" class="btn btn-success "
             [disabled]="formularioProducto.invalid"
             (click)="guardarProducto()">Crear Producto</button>
+
+            <button type="submit" class="btn btn-primary float-right"
+            routerLink="productos">Cancelar</button>
       </form>
     </div>
     <div class="col"></div>

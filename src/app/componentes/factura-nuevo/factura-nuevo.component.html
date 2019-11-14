@@ -1,1 +1,79 @@
-<p>factura-nuevo works!</p>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-6 text-center">Emitir Factura</h1>
+  </div>
+</div>
+<div class="row" *ngIf="this.formularioFactura">
+  <div class="col"></div>
+  <div class="col-8">
+    <form [formGroup]="formularioFactura">        
+      <div class="form-row">
+        <div class="col-md-3"></div>
+        <div class="form-group col-md-3">
+          <label for="nombre">Tipo</label>
+          <select type="text" class="form-control" placeholder="Nombre"
+            formControlName="tipo">
+            <option value="A">A</option>
+            <option value="A">B</option>
+            <option value="A">C</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="precio">Cliente</label>
+          <div class="input-group">
+          <input type="number" class="form-control" name="numero"
+            [ngClass]="{'is-invalid' : (numero.invalid && numero.touched)}"
+            placeholder="Numero de factura" formControlName="numero">
+            </div>
+            <small class="form-text text-danger" *ngIf="numero.invalid && numero.touched">
+            Debe ingresar un numero de factura
+          </small>
+        </div> 
+        
+      </div>
+      <div class="form-group">
+          <label for="precio">Número</label>
+          <div class="input-group">
+            <select type="text" class="form-control"
+            formControlName="idcliente">- Seleccione Cliente -
+              <option *ngFor="let cliente of clientes" value="cliente.id">
+                {{cliente.nombre}} - {{cliente.cuit}}
+                </option>           
+            </select>
+        </div>
+<div class="row">
+  <div class="col"></div>
+  <div class="col-10">
+  <table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Producto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio Unitario</th>
+      <th scope="col">IVA</th>
+      <th scope="col">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>    
+  </tbody>
+  </table>
+</div>
+<div class="col"></div>
+</div>  
+        <button type="submit" class="btn btn-success "
+          [disabled]="formularioFactura.invalid"
+          (click)="guardarFactura()">Guardar</button>
+
+          <button type="submit" class="btn btn-primary float-right"
+          routerLink="clientes">Cancelar</button>
+    </form>
+  </div>
+  <div class="col"></div>
+</div>

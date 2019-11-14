@@ -9,16 +9,18 @@
   <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th scope="col">Descripción</th>
+      <th scope="col">Nombre</th>
       <th scope="col">Precio</th>
       <th scope="col">Código</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let  producto of productos">
-      <td>{{producto.descripcion}}</td>
+  <tbody *ngIf="productos">
+    <tr *ngFor="let producto of productos">
+      <td>{{producto.nombre}}</td>
       <td>{{producto.precio}}</td>
       <td>{{producto.codigo}}</td>
+      <td><a routerLink="{{producto.id}}">Editar</a> - <span (click)="borrarProducto(producto.id)">Borrar</span></td>
+      
     </tr>    
   </tbody>
   </table>

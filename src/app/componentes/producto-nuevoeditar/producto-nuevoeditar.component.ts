@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { ApiJsonService } from 'src/app/servicios/api-json.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/clases/producto';
+import { ApiService } from 'src/app/servicios/api.service';
 
 @Component({
   selector: 'mp-producto-nuevoeditar',
@@ -15,22 +15,25 @@ export class ProductoNuevoeditarComponent implements OnInit {
   idDesdeUrl: string
 
   esProductoNuevo: boolean 
-  constructor(private formB: FormBuilder, private route: ActivatedRoute, private apiJson: ApiJsonService) {
+  constructor(private formB: FormBuilder, private route: ActivatedRoute,
+               private router: Router, private api: ApiService) {
+
     this.idDesdeUrl = this.route.snapshot.paramMap.get('id');
 
-    if(this.idDesdeUrl !== "0" && this.idDesdeUrl !== 'undefined')
+    if(this.idDesdeUrl !== "0" && this.idDesdeUrl !== 'undefined' && this.idDesdeUrl !== null)
     {
-      this.apiJson.getProducto(this.idDesdeUrl)
+      this.api.getProducto(this.idDesdeUrl)
         .subscribe(producto => {
          this.crearFormulario(producto)
          }
         )
-
+    this.esProductoNuevo = false;
     }
     else {
       this.crearFormulario(null)
+      this.esProductoNuevo = true;
     }
-    this.esProductoNuevo = false;
+    
 
   }
 
@@ -38,29 +41,39 @@ export class ProductoNuevoeditarComponent implements OnInit {
      this.formularioProducto = this.formB.group({
       id: [producto != null ? producto.id : null, []],
       codigo: [producto != null ? producto.codigo : '', [Validators.required]],
-      descripcion: [producto != null ? producto.descripcion : null, [Validators.required]],
+      nombre: [producto != null ? producto.nombre : null, [Validators.required]],
+      descripcion: [producto != null ? producto.descripcion : null, []],
       precio: [producto != null ? producto.precio : null, [Validators.required, Validators.min(1)]]
     })
-
-        this.formularioProducto.valueChanges.subscribe(console.table)
   }
   ngOnInit() {
   }
 
   guardarProducto(){
     const productoNuevo : Producto= this.formularioProducto.value
-    productoNuevo.id = 27
-    this.apiJson.nuevoProducto(productoNuevo).subscribe(
+    if(this.esProductoNuevo){
+      this.api.nuevoProducto(productoNuevo).subscribe(
       data => {
       console.log("se creo producto")
-      console.log(data)} 
-    )
+      console.log(data)
+      this.router.navigate(['productos']);
+        } 
+      )
+    }
+    else {
+      this.api.actualizarProducto(productoNuevo).subscribe(
+      data => {
+      console.log("se modifico producto")
+      console.log(data)
+      this.router.navigate(['productos']);
+        } 
+      )
+    }
   }
 
   get id() { return this.formularioProducto.get('id'); }
   get codigo() { return this.formularioProducto.get('codigo'); }
+  get nombre() { return this.formularioProducto.get('nombre'); }
   get descripcion() { return this.formularioProducto.get('descripcion'); }
   get precio() { return this.formularioProducto.get('precio'); }
-
-
 }

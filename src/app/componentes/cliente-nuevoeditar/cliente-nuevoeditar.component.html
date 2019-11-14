@@ -1,1 +1,47 @@
-<p>cliente-nuevoeditar works!</p>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-6 text-center" *ngIf="esClienteNuevo">Nuevo Cliente</h1>
+    <h1 class="display-6 text-center" *ngIf="!esClienteNuevo">Modificar Cliente</h1>
+  </div>
+</div>
+<div class="row" *ngIf="this.formularioCliente">
+  <div class="col"></div>
+  <div class="col-8">
+    <form [formGroup]="formularioCliente">        
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="nombre">Nombre</label>
+          <input type="text" class="form-control" placeholder="Nombre"
+            formControlName="nombre">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="precio">CUIT</label>
+          <div class="input-group">
+          <input type="number" class="form-control" name="cuit"
+            [ngClass]="{'is-invalid' : (cuit.invalid && cuit.touched)}"
+            aria-describedby="cuitInfo" placeholder="CUIT"
+            formControlName="cuit">
+            </div>
+            <small class="form-text text-danger" *ngIf="cuit.invalid && cuit.touched">
+            Debe ingresar el CUIT del cliente y ser 11 digitos
+          </small>
+            <small id="cuitInfo" class="form-text text-muted" *ngIf="!(cuit.invalid && cuit.touched)">
+            Sin Guiones, por ejemplo: 20542223339              
+          </small>
+        </div>  
+      </div>
+      <div class="form-group">
+          <label for="nombre">Dirección</label>
+          <textarea type="text" class="form-control" placeholder="Ingrese Dirección del cliente"
+            formControlName="direccion"></textarea>              
+        </div>
+        <button type="submit" class="btn btn-success "
+          [disabled]="formularioCliente.invalid"
+          (click)="guardarCliente()">Guardar</button>
+
+          <button type="submit" class="btn btn-primary float-right"
+          routerLink="clientes">Cancelar</button>
+    </form>
+  </div>
+  <div class="col"></div>
+</div>
