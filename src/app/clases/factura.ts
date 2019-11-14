@@ -5,7 +5,7 @@ export class Factura {
   tipo: string
   fecha: Date
   numero: number
-  puntoDeVenta: number
+  puntodeventa: number
   idcliente: number
   cliente: Cliente
   total: number

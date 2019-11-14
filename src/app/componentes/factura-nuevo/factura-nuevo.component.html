@@ -8,18 +8,26 @@
   <div class="col-8">
     <form [formGroup]="formularioFactura">        
       <div class="form-row">
-        <div class="col-md-3"></div>
         <div class="form-group col-md-3">
           <label for="nombre">Tipo</label>
           <select type="text" class="form-control" placeholder="Nombre"
             formControlName="tipo">
             <option value="A">A</option>
-            <option value="A">B</option>
-            <option value="A">C</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
             </select>
         </div>
+        <div class="form-group col-md-3">
+          <label for="puntodeventa">Punto de Venta</label>
+          <input type="text" class="form-control" placeholder="Punto de venta"
+            [ngClass]="{'is-invalid' : (puntodeventa.invalid && puntodeventa.touched)}"
+            formControlName="puntodeventa">
+          <small class="form-text text-danger" *ngIf="puntodeventa.invalid && puntodeventa.touched">
+            Debe ingresar un punto de venta
+          </small>
+        </div>
         <div class="form-group col-md-6">
-          <label for="precio">Cliente</label>
+          <label for="numero">Número</label>
           <div class="input-group">
           <input type="number" class="form-control" name="numero"
             [ngClass]="{'is-invalid' : (numero.invalid && numero.touched)}"
@@ -31,48 +39,93 @@
         </div> 
         
       </div>
-      <div class="form-group">
-          <label for="precio">Número</label>
-          <div class="input-group">
+      <div class="form-group" *ngIf="clientesParaSeleccionar">
+          <label for="precio">Cliente</label>
             <select type="text" class="form-control"
             formControlName="idcliente">- Seleccione Cliente -
-              <option *ngFor="let cliente of clientes" value="cliente.id">
+              <option *ngFor="let cliente of clientesParaSeleccionar" [ngValue]="cliente.id">
                 {{cliente.nombre}} - {{cliente.cuit}}
                 </option>           
             </select>
-        </div>
-<div class="row">
+      </div>
+<div class="row" formArrayName="items">
   <div class="col"></div>
   <div class="col-10">
   <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th scope="col">Producto</th>
-      <th scope="col">Cantidad</th>
-      <th scope="col">Precio Unitario</th>
-      <th scope="col">IVA</th>
-      <th scope="col">Subtotal</th>
+      <th scope="col-4">
+       Producto
+      </th>
+      <th scope="col-1">Cantidad</th>
+      <th scope="col-2">Precio Unitario</th>
+      <th scope="col-2">IVA</th>
+      <th scope="col-3">Subtotal</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>    
+    <tr *ngFor="let itemFactura of itemsDeFactura.controls; let i=index " [formGroupName]='i'>
+       <td>
+         <div class="form-group" *ngIf="productosParaSeleccionar">
+          <select type="text" class="form-control" name="producto"
+            formControlName="idproducto">- Seleccione Producto -
+              <option *ngFor="let producto of productosParaSeleccionar" value="producto.id">
+                {{producto.nombre}} - {{producto.cuit}}
+              </option>           
+            </select>
+          </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control"
+            formControlName="cantidad">
+          </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control"
+            formControlName="precioUnitario">
+          </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control"
+            formControlName="tva">
+          </div>
+         </div>
+        </td>
+
+        <td>
+         <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control"
+            formControlName="subtotal">
+          </div>
+         </div>
+        </td>
+    </tr>
+
   </tbody>
   </table>
+  <button type="submit" class="btn btn-secondary"
+          (click)="agregarItemFormulario()">Agregar Detalle</button>
 </div>
 <div class="col"></div>
 </div>  
-        <button type="submit" class="btn btn-success "
-          [disabled]="formularioFactura.invalid"
-          (click)="guardarFactura()">Guardar</button>
+  <button type="submit" class="btn btn-success "
+  [disabled]="formularioFactura.invalid"
+  (click)="guardarFactura()">Guardar</button>
 
-          <button type="submit" class="btn btn-primary float-right"
-          routerLink="clientes">Cancelar</button>
+  <button type="submit" class="btn btn-primary float-right"
+  routerLink="facturas">Cancelar</button>
     </form>
   </div>
   <div class="col"></div>

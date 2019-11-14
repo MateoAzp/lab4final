@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Producto } from '../clases/producto';
 import { Cliente } from '../clases/cliente';
 import { Factura } from '../clases/factura';
+import { Facturaitem } from '../clases/facturaitem';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,10 @@ export class ApiService {
   nuevaFactura(facturaNueva: Factura) {
    const endpoint: string = this.url + "facturas/"
     return this._httpClient.post(endpoint, facturaNueva)
+  }
+  nuevoDetalleDeFactura(itemsFactura : Facturaitem[]) {
+    const endpoint: string = this.url + "facturas/"
+    return this._httpClient.post(endpoint, {"itemsFactura":itemsFactura})
   }
   
   eliminarFactura(idfactura:number) {

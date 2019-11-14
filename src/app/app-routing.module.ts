@@ -4,6 +4,8 @@ import { ProductoNuevoeditarComponent } from './componentes/producto-nuevoeditar
 import { ProductoListaComponent } from './componentes/producto-lista/producto-lista.component';
 import { ClienteListaComponent } from './componentes/cliente-lista/cliente-lista.component';
 import { ClienteNuevoeditarComponent } from './componentes/cliente-nuevoeditar/cliente-nuevoeditar.component';
+import { FacturaListaComponent } from './componentes/factura-lista/factura-lista.component';
+import { FacturaNuevoComponent } from './componentes/factura-nuevo/factura-nuevo.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,11 @@ const routes: Routes = [
     {
       path: 'clientes', component:ClienteListaComponent },
       {path: 'clientes/:id', component: ClienteNuevoeditarComponent, pathMatch:'full' 
+      //children: [{ path: ':id', }] 
+    },
+    {
+      path: 'facturas', component:FacturaListaComponent },
+      {path: 'facturas/nueva', component: FacturaNuevoComponent, pathMatch:'full' 
       //children: [{ path: ':id', }] 
     },
     { path: '**', component: ProductoNuevoeditarComponent }

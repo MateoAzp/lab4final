@@ -11,7 +11,7 @@ export class Facturaitem {
   precioUnitario: number
   iva: number
   producto: Producto
-  idProducto: number
+  idproducto: number
 
   subtotal(){
     return this.cantidad * (this.precioUnitario + this.iva)
